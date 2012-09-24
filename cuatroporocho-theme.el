@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Bechmann      on 17-09-2012 22:17:44
+;; Last changed by: Frank Ruben      on 17-09-2012 22:17:44
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
