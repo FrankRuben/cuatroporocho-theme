@@ -506,14 +506,6 @@
 (provide-theme 'cuatroporocho)
 
 
-;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Faces.html
-;; https://github.com/fniessen/color-theme-leuven/blob/master/color-theme-leuven.el
-;; http://edward.oconnor.cx/config/elisp/hober2-theme.el -> tricks mit custom-theme variables
-;; http://emacsfodder.github.com/DeepBlueDay-theme.el -> tricks mit class fuer verschiedene min-colors / backgrounds
-;; https://github.com/m00natic/dot-emacs/blob/master/init.el -> mit default, colors 89, minimal, default/class/t settings (plus andere)
-;; nice: http://img119.imageshack.us/my.php?image=gvimeveningqu9.png, see here: http://www.reddit.com/r/programming/comments/760yt/ask_reddit_help_me_find_a_vim_color_scheme
-;; many faces: http://emacswiki.org/emacs/color-theme-ahei.el
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
