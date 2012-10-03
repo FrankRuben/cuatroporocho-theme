@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben      on 17-09-2012 22:17:44
+;; Last changed by: Frank Ruben on 03-10-2012 21:38:51
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -64,7 +64,7 @@
                        (my-fg-2    "black"        "#4f4f4f")
                        (my-green+4 "green"        "#183808")
                        (my-green+3 "green"        "#1a4a0a")
-                       (my-green+2 "green"   	  "#104a20")
+                       (my-green+2 "green"       "#104a20")
                        (my-green+1 "lightgreen"   "#28542b")
                        (my-green   "lightgreen"   "#195E19")
                        (my-magenta "magenta"      "#8F2D72")
@@ -151,6 +151,12 @@
                           (,cld16 (:foreground ,(fd16 'my-fg-1)))
                           (,cll16 (:foreground ,(fl16 'my-fg-1)))
                           (t :foreground "blue")))
+     `(minibuffer-noticeable-prompt ((default :weight bold :slant italic)
+                                     (,cld88 (:foreground ,(fd88 'my-fg)))
+                                     (,cll88 (:foreground ,(fl88 'my-fg)))
+                                     (,cld16 (:foreground ,(fd16 'my-fg)))
+                                     (,cll16 (:foreground ,(fl16 'my-fg)))
+                                     (t :foreground "orange")))
      `(region              ((t (:inherit highlight)))) ; text highlight
      `(cua-rectangle       ((t (:inherit highlight)))) ; CUA rectangle
      `(primary-selection   ((,cld88 (:background ,(fd88 'my-bg+2)))
@@ -505,7 +511,5 @@
 
 (provide-theme 'cuatroporocho)
 
-
-;; Local Variables:
-;; no-byte-compile: t
+;; Local Variables:;; no-byte-compile: t
 ;; End:
