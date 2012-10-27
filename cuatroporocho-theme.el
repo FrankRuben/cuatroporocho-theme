@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben on 03-10-2012 21:38:51
+;; Last changed by: Frank Ruben on 25-10-2012 16:38:25
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -9,6 +9,7 @@
 ;;                  for win32 graphics mode and win32 console mode.
 ;; Note:            As zenburn, this still requires a special load:
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
+;; Note:            Use M-x rainbow-mode to display the color codes and constants
 ;; ============================================================================
 
 (deftheme cuatroporocho "The cuatro por ocho color theme")
@@ -42,7 +43,7 @@
                        (my-green+1 "green"        "#8fb28f") ; documentation
                        (my-green   "green"        "#7f9f7f") ; inactive modeline foreground
                        (my-magenta "magenta"      "#dc8cc3") ; unknown faces
-                       (my-orange  "lightmagenta" "#f7d788") ; header/context/message/...
+                       (my-orange  "lightmagenta" "#f7d788") ; header/context/message/global-mark/...
                        (my-red+1   "lightred"     "#EEBFaF") ; warning
                        (my-red     "red"          "#cb8373") ; error
                        (my-yellow  "yellow"       "#fbfba2") ; constant/line/info/...
@@ -86,7 +87,7 @@
          (fl88 (c) (my-get-color c t    ))
          (fd16 (c) (my-get-color c nil t))
          (fl16 (c) (my-get-color c t   t))
-         (fc   (c) (my-get-color c (eq cuatroporocho-background-mode 'dark)))) ; TODO: 16/88
+         (fc   (c) (my-get-color c (eq cuatroporocho-background-mode 'light)))) ; TODO: 16/88, e.g. display-graphic-p?
     (custom-theme-set-faces
      'cuatroporocho
      ;; basic coloring (most faces inherit from 'success, 'error, 'warning etc.)
@@ -97,11 +98,11 @@
                      (,cld16 (:foreground ,(fd16 'my-fg) :background ,(fd16 'my-bg)))
                      (,cll16 (:foreground ,(fl16 'my-fg) :background ,(fl16 'my-bg)))
                      (t :foreground "white" :background "black")))
-     `(error        ((default :weight bold :underline t)
-                     (,cld88 (:foreground ,(fd88 'my-red)))
-                     (,cll88 (:foreground ,(fl88 'my-red)))
-                     (,cld16 (:foreground ,(fd16 'my-red)))
-                     (,cll16 (:foreground ,(fl16 'my-red)))
+     `(error        ((default :weight bold)
+                     (,cld88 (:foreground ,(fd88 'my-red) :underline "red")) ; only standard color underlines work
+                     (,cll88 (:foreground ,(fl88 'my-red) :underline "red"))
+                     (,cld16 (:foreground ,(fd16 'my-red) :underline "red"))
+                     (,cll16 (:foreground ,(fl16 'my-red) :underline "red"))
                      (t :foreground "red")))
      `(warning      ((default :slant italic)
                      (,cld88 (:foreground ,(fd88 'my-red+1)))
@@ -158,7 +159,6 @@
                                      (,cll16 (:foreground ,(fl16 'my-fg)))
                                      (t :foreground "orange")))
      `(region              ((t (:inherit highlight)))) ; text highlight
-     `(cua-rectangle       ((t (:inherit highlight)))) ; CUA rectangle
      `(primary-selection   ((,cld88 (:background ,(fd88 'my-bg+2)))
                             (,cll88 (:background ,(fl88 'my-bg+2)))
                             (,cld16 (:background ,(fd16 'my-bg+2)))
@@ -169,7 +169,13 @@
                             (,cld16 (:background ,(fd16 'my-bg-X)))
                             (,cll16 (:background ,(fl16 'my-bg-X)))
                             (t :background "brown")))
-
+     `(cua-rectangle       ((t (:inherit primary-selection)))) ; CUA highlighting rectangle
+     `(cua-rectangle-noselect ((t (:inherit secondary-selection)))) ; CUA highlighting non-selected rectangle lines
+     `(cua-global-mark ((,cld88 (:background ,(fd88 'my-cyan-1))) ; CUA highlighting the global mark; background only
+                        (,cll88 (:background ,(fl88 'my-cyan-1)))
+                        (,cld16 (:background ,(fd16 'my-cyan-1)))
+                        (,cll16 (:background ,(fl16 'my-cyan-1)))
+                        (t :foreground "lightcyan")))
      ;; isearch and query
      `(isearch           ((t (:inherit match :weight bold))))
      `(lazy-highlight    ((t (:inherit match))))
@@ -255,7 +261,7 @@
      ;; etc
      `(menu ((t (:inherit default))))
      `(toolbar ((t (:inherit default))))
-     `(escape-glyph-face ((t (:inherit font-lock-negation-char-face))))
+     `(escape-glyph-face ((t (:inherit font-lock-negation-char-face)))) ; e.g. ^M
      `(info-xref ((t (:inherit link))))
      `(info-xref-visited ((t (:inherit link-visited))))
      `(info-menu-star ((t (:inherit highlight))))
@@ -487,7 +493,7 @@
      `(which-func ((t (:inherit font-lock-function-name-face))))
 
      ;; Yasnippet
-     `(yas/field-debug-face     ((t (:inherid font-lock-negation-char-face)))) ; for debugging some overlays normally hidden
+     `(yas/field-debug-face     ((t (:inherid font-lock-negation-char-face)))) ; hidden overlays during debugging
      `(yas/field-highlight-face ((t (:inherit highlight)))) ; highlight the currently active field of a snippet
      )
 
@@ -499,10 +505,15 @@
          ,(fc 'my-blue) ,(fc 'my-magenta) ,(fc 'my-cyan)  ,(fc 'my-fg) ] )
      `(fci-rule-color ,(fc 'my-bg-1))) ; fill-column-indicator
 
+    (eval-after-load 'highlight-symbol
+      `(setq highlight-symbol-colors
+	     '( ,(fc 'my-yellow) ,(fc 'my-red)   ,(fc 'my-cyan) ,(fc 'my-magenta) ,(fc 'my-green)
+		,(fc 'my-orange) ,(fc 'my-red+1) ,(fc 'my-blue) ,(fc 'my-fg-2) )))
+
     (eval-after-load 'term
       `(setq ansi-term-color-vector ; colors for the ansi-term; used by shell mode
              [ 'unspecified ,(fc 'my-bg)   ,(fc 'my-red)     ,(fc 'my-green) ,(fc 'my-yellow)
-                            ,(fc 'my-blue) ,(fc 'my-magenta) ,(fc 'my-cyan)  ,(fc 'my-fg) ] ))))
+                            ,(fc 'my-blue) ,(fc 'my-magenta) ,(fc 'my-cyan)  ,(fc 'my-fg) ] )))) ; C-x e here
 
 ;;;###autoload
 (when (and load-file-name (boundp 'custom-theme-load-path))
@@ -511,5 +522,15 @@
 
 (provide-theme 'cuatroporocho)
 
-;; Local Variables:;; no-byte-compile: t
+
+;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Faces.html
+;; https://github.com/fniessen/color-theme-leuven/blob/master/color-theme-leuven.el
+;; http://edward.oconnor.cx/config/elisp/hober2-theme.el -> tricks mit custom-theme variables
+;; http://emacsfodder.github.com/DeepBlueDay-theme.el -> tricks mit class fuer verschiedene min-colors / backgrounds
+;; https://github.com/m00natic/dot-emacs/blob/master/init.el -> mit default, colors 89, minimal, default/class/t settings (plus andere)
+;; nice: http://img119.imageshack.us/my.php?image=gvimeveningqu9.png, see here: http://www.reddit.com/r/programming/comments/760yt/ask_reddit_help_me_find_a_vim_color_scheme
+;; many faces: http://emacswiki.org/emacs/color-theme-ahei.el
+
+;; Local Variables:
+;; no-byte-compile: t
 ;; End:
