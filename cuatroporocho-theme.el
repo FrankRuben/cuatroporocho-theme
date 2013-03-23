@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben on 25-10-2012 16:38:25
+;; Last changed by: Frank Ruben         on 23-03-2013 13:22:06
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -65,7 +65,7 @@
                        (my-fg-2    "black"        "#4f4f4f")
                        (my-green+4 "green"        "#183808")
                        (my-green+3 "green"        "#1a4a0a")
-                       (my-green+2 "green"       "#104a20")
+                       (my-green+2 "green"   	  "#104a20")
                        (my-green+1 "lightgreen"   "#28542b")
                        (my-green   "lightgreen"   "#195E19")
                        (my-magenta "magenta"      "#8F2D72")
@@ -478,12 +478,12 @@
 
      ;; whitespace and whitespace-mode
      `(trailing-whitespace         ((,cld88 (:background ,(fd88 'my-red)))))
+     `(whitespace-trailing         ((t (:inherit trailing-whitespace))))
      `(whitespace-space            ((,cld88 (:background ,(fd88 'my-bg+1)))))
      `(whitespace-hspace           ((,cld88 (:background ,(fd88 'my-bg+1)))))
      `(whitespace-tab              ((,cld88 (:background ,(fd88 'my-bg+1) :underline t))))
      `(whitespace-newline          ((,cld88 (:background ,(fd88 'my-bg+2)))))
-     `(whitespace-trailing         ((t (:inherit trailing-whitespace))))
-     `(whitespace-line             ((,cld88 (:background ,(fd88 'my-bg-1)))))
+     `(whitespace-line             ((,cld88 (:underline (:color ,(fd88 'my-yellow) :style wave))))) ; long lines
      `(whitespace-space-before-tab ((,cld88 (:foreground ,(fd88 'my-bg+1)))))
      `(whitespace-indentation      ((,cld88 (:foreground ,(fd88 'my-bg+1) :underline t))))
      `(whitespace-empty            ((,cld88 (:background ,(fd88 'my-bg+1)))))
