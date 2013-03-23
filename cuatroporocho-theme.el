@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben         on 23-03-2013 13:22:06
+;; Last changed by: Frank Ruben on 23-03-2013 16:39:26
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -15,7 +15,7 @@
 (deftheme cuatroporocho "The cuatro por ocho color theme")
 
 (defvar cuatroporocho-background-mode 'dark)
-;; (defvar cuatroporocho-background-mode 'light)
+;; (defvar cuatroporocho-background-mode 'light) ; TODO: not yet complete
 
 (defun my-get-color (which-color &optional light-mode for-terminal)
   ;;                               win32          win32
@@ -490,11 +490,23 @@
      `(whitespace-space-after-tab  ((,cld88 (:background ,(fd88 'my-red)))))
 
      ;; which-func-mode
-     `(which-func ((t (:inherit font-lock-function-name-face))))
+     `(which-func                  ((t (:inherit font-lock-function-name-face))))
 
      ;; Yasnippet
-     `(yas/field-debug-face     ((t (:inherid font-lock-negation-char-face)))) ; hidden overlays during debugging
-     `(yas/field-highlight-face ((t (:inherit highlight)))) ; highlight the currently active field of a snippet
+     `(yas/field-debug-face        ((t (:inherid font-lock-negation-char-face)))) ; hidden overlays during debugging
+     `(yas/field-highlight-face    ((t (:inherit highlight)))) ; highlight the currently active field of a snippet
+
+     ;; Ace-jump
+     `(ace-jump-face-background    ((,cld88 (:background ,(fd88 'my-bg+1)))
+                                    (,cll88 (:background ,(fl88 'my-bg+1)))
+                                    (,cld16 (:background ,(fd16 'my-bg+1)))
+                                    (,cll16 (:background ,(fl16 'my-bg+1)))
+                                    (t :background "darkgray")))
+     `(ace-jump-face-foreground    ((default :weight bold :slant italic)
+                                    (,cld88 (:foreground ,(fd88 'my-magenta)))
+                                    (,cll88 (:foreground ,(fl88 'my-magenta)))
+                                    (,cld16 (:foreground ,(fd16 'my-magenta)))
+                                    (,cll16 (:foreground ,(fl16 'my-magenta)))))
      )
 
     (custom-theme-set-variables
