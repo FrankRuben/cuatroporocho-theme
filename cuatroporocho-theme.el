@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben on 23-03-2013 16:39:26
+;; Last changed by: Frank Ruben         on 23-03-2013 23:25:07
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -391,6 +391,18 @@
      ;; hl-line-mode
      `(hl-line      ((t (:inherit fringe))))
      `(hl-line-face ((t (:inherit fringe))))
+
+     ;; highlight-changes-mode
+     `(highlight-changes ((,cld88 (:underline (:color ,(fd88 'my-orange) :style wave)))
+                          (,cld88 (:underline (:color ,(fl88 'my-orange) :style wave)))
+                          (,cld88 (:underline (:color ,(fd16 'my-orange) :style wave)))
+                          (,cld88 (:underline (:color ,(fl16 'my-orange) :style wave)))
+                          (t (:inverse-video t))))
+     `(highlight-changes-delete ((,cld88 (:underline (:color ,(fd88 'my-magenta) :style wave)))
+                                 (,cld88 (:underline (:color ,(fl88 'my-magenta) :style wave)))
+                                 (,cld88 (:underline (:color ,(fd16 'my-magenta) :style wave)))
+                                 (,cld88 (:underline (:color ,(fl16 'my-magenta) :style wave)))
+                                 (t (:inverse-video t))))
 
      ;; linum-mode
      `(linum ((,cld88 (:foreground ,(fd88 'my-yellow) :background ,(fd88 'my-bg+1)))
