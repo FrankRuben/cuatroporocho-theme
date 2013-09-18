@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben   on 07-07-2013 20:33:33
+;; Last changed by: Frank Ruben   on 18-09-2013 22:29:57
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -10,11 +10,15 @@
 ;; Note:            As zenburn, this still requires a special load:
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
+;; Note:            Use M-x list-faces-display to find faces in a buffer
 ;; ============================================================================
+
+(unless (>= 24 emacs-major-version)
+  (error "cuatroporocho-theme requires Emacs 24+."))
 
 (deftheme cuatroporocho "The cuatro por ocho color theme")
 
-;; (defvar cuatroporocho-background-mode 'dark)
+;;(defvar cuatroporocho-background-mode 'dark)
 (defvar cuatroporocho-background-mode 'light) ; TODO: not yet complete; see {*3*}
 
 (defun my-get-color (which-color &optional light-mode for-terminal)
@@ -23,56 +27,54 @@
   ;; colors with +x are lighter, colors with -x are darker
   ;;  display-visual-class -> win32 UI: true-color ; win32 console: static-color
   ;;  display-color-cells  -> win32 UI: 16777216   ; win32 console: 16
-  (let ((dark-colors '((my-bg+2    "brown"        "#4f4f4f") ; fringe and highlighted background
-                       (my-bg+1    "darkgray"     "#2f2f2f") ; string background
+  (let ((dark-colors '((my-bg+2    "#884400"      "#4f4f4f") ; fringe and highlighted background; brown
+                       (my-bg+1    "#777777"      "#2f2f2f") ; string background and inactive modeline background; darkgray
                        (my-bg      "black"        "#1f1f1f") ; default background
                        (my-bg-1    "black"        "#0b0b0b") ; match background
                        (my-bg-X    "magenta"      "#4F3D3D") ; active modeline background; touch of red
-                       (my-blue    "lightblue"    "#AFC2F2") ; link, directory
-                       (my-blue-1  "blue"         "#90A8E5") ; types, functions
+                       (my-blue    "#0000FF"      "#AFC2F2") ; link, directory; lightblue
+                       (my-blue-1  "#0000FF"      "#90A8E5") ; types, functions; lightblue
                        (my-blue-2  "blue"         "#7C8AAC") ; variable and parameter names
-                       (my-cyan    "cyan"         "#93e0e3") ; cursor
-                       (my-cyan-1  "cyan"         "#7DA8AA") ; match foreground
-                       (my-fg+1    "white"        "#EEEEE4")
-                       (my-fg      "lightgray"    "#dcdccc") ; default foreground
-                       (my-fg-1    "lightgray"    "#A5A59C") ; comment
-                       (my-fg-2    "lightgray"    "#5b6555") ; comment delimiter; touch of green
-                       (my-green+4 "lightgreen"   "#D3ECD3") ; string foreground
-                       (my-green+3 "lightgreen"   "#afd8af") ; success
-                       (my-green+2 "lightgreen"   "#9fc59f")
+                       (my-cyan    "#00FFFF"      "#93e0e3") ; cursor; lightcyan
+                       (my-cyan-1  "cyan"         "#3D7575") ; match foreground
+                       (my-fg      "#AAAAAA"      "#dcdccc") ; default foreground; lightgray
+                       (my-fg-1    "#AAAAAA"      "#A5A59C") ; comment; lightgray
+                       (my-fg-2    "#AAAAAA"      "#5b6555") ; comment delimiter; touch of green; lightgray
+                       (my-green+4 "#00FF00"      "#D3ECD3") ; string foreground; lightgreen
+                       (my-green+3 "#00FF00"      "#afd8af") ; success; lightgreen
+                       (my-green+2 "#00FF00"      "#9fc59f") ; lightgreen
                        (my-green+1 "green"        "#8fb28f") ; documentation
                        (my-green   "green"        "#7f9f7f") ; inactive modeline foreground
                        (my-magenta "magenta"      "#dc8cc3") ; unknown faces
-                       (my-orange  "lightmagenta" "#f7d788") ; header/context/message/global-mark/...
-                       (my-red+1   "lightred"     "#EEBFaF") ; warning
+                       (my-orange  "#FF00FF"      "#f7d788") ; header/context/message/global-mark/...; lightmagenta
+                       (my-red+1   "#FF0000"      "#EEBFaF") ; warning; lightred
                        (my-red     "red"          "#cb8373") ; error
                        (my-yellow  "yellow"       "#fbfba2") ; constant/line/info/...
                        ))
         ;; colors with +x are darker, colors with -x are lighter
-        (lite-colors '((my-bg+2    "lightgray"    "#BcBaB0")
-                       (my-bg+1    "lightgray"    "#DcDaD0")
-                       (my-bg      "white"        "#F4F2E2")
-                       (my-bg-1    "white"        "#FCF8F2")
-                       (my-blue    "blue"         "#1e4aec")
-                       (my-blue-1  "blue"         "#2700e2")
-                       (my-blue-2  "lightblue"    "#198ce7")
-                       (my-cyan    "cyan"         "#4E9692")
-                       (my-cyan-1  "lightcyan"    "#4FA19F")
-                       (my-fg+1    "darkgray"     "#0b0b0b")
-                       (my-fg      "darkgray"     "#1f1f1f")
-                       (my-fg-1    "black"        "#2f2f2f")
-                       (my-fg-2    "black"        "#4f4f4f")
-                       (my-green+4 "green"        "#183808")
-                       (my-green+3 "green"        "#1a4a0a")
-                       (my-green+2 "green"        "#104a20")
-                       (my-green+1 "lightgreen"   "#28542b")
-                       (my-green   "lightgreen"   "#195E19")
-                       (my-magenta "magenta"      "#cc27cc")
-                       (my-bg-X    "lightmagenta" "#ddaaff")
-                       (my-orange  "brown"        "#f15501")
-                       (my-red+1   "red"          "#cc0a38")
-                       (my-red     "lightred"     "#ee0c5a")
-                       (my-yellow  "yellow"       "#D19E04")
+        (lite-colors '((my-bg+2    "yellow"       "#F0F0D8") ; #EBE6D1
+                       (my-bg+1    "#AAAAAA"      "#FCFBE3") ; #F4F2E6 ; lightgray
+                       (my-bg      "white"        "#F9F7F1") ;
+                       (my-bg-1    "white"        "#FFFFFC")
+                       (my-blue    "blue"         "#0400FA")
+                       (my-blue-1  "blue"         "#2C29D1")
+                       (my-blue-2  "#0000FF"      "#5452A7") ; lightblue
+                       (my-cyan    "cyan"         "#6CDFEA") ; #1693A5 #00AD8E
+                       (my-cyan-1  "#00FFFF"      "#ADD8C7") ; #69D2E7 #6ECFBD ; lightcyan
+                       (my-fg      "black"        "#060F00")
+                       (my-fg-1    "#777777"      "#0A1A00") ; gray
+                       (my-fg-2    "#777777"      "#0E2400") ; gray
+                       (my-green+4 "green"        "#3D4D33")
+                       (my-green+3 "green"        "#3A5926")
+                       (my-green+2 "green"        "#376619")
+                       (my-green+1 "#00FF00"      "#34730D") ; lightgreen
+                       (my-green   "#00FF00"      "#318000") ; lightgreen
+                       (my-magenta "magenta"      "#AD0088") ; #BD1550
+                       (my-bg-X    "#FF00FF"      "#F6E9F3") ; #EDDFDE #E2D9E0 ; lightmagenta
+                       (my-orange  "magenta"      "#FA6900")
+                       (my-red+1   "#770000"      "#A40802") ; #DD1F0E #B82214 ; red
+                       (my-red     "#FF0000"      "#F02311") ; lightred
+                       (my-yellow  "#884400"      "#FBB829") ; #EBC000 ; brown
                        )))
     (let* ((which-color-list (if light-mode lite-colors dark-colors))
            (matching-color-set (cdr (assoc which-color which-color-list)))
@@ -110,12 +112,7 @@
                      (,cld16 (:foreground ,(fd16 'my-red+1)))
                      (,cll16 (:foreground ,(fl16 'my-red+1)))
                      (t :foreground "yellow")))
-     `(cancel       ((default :slant italic)
-                     (,cld88 (:strike-through t :foreground ,(fd88 'my-red+1)))
-                     (,cll88 (:strike-through t :foreground ,(fl88 'my-red+1)))
-                     (,cld16 (:strike-through t :foreground ,(fd16 'my-red+1)))
-                     (,cll16 (:strike-through t :foreground ,(fl16 'my-red+1)))
-                     (t :foreground "yellow")))
+     `(cancel       ((t (:inherit warning :slant italic))))
      `(success      ((default :underline t)
                      (,cld88 (:foreground ,(fd88 'my-green+3)))
                      (,cll88 (:foreground ,(fl88 'my-green+3)))
@@ -253,11 +250,7 @@
                             (,cll88 (:foreground ,(fl88 'my-green+2) :background ,(fl88 'my-bg+1)))
                             (,cld16 (:foreground ,(fd16 'my-green+2) :background ,(fd16 'my-bg+1)))
                             (,cll16 (:foreground ,(fl16 'my-green+2) :background ,(fl16 'my-bg+1)))))
-     `(mode-line-emphasis ((default :box (:line-width 2 :style released-button))
-                           (,cld88 (:weight bold :foreground ,(fd88 'my-green+2) :background ,(fd88 'my-bg+1)))
-                           (,cll88 (:weight bold :foreground ,(fl88 'my-green+2) :background ,(fl88 'my-bg+1)))
-                           (,cld16 (:weight bold :foreground ,(fd16 'my-green+2) :background ,(fd16 'my-bg+1)))
-                           (,cll16 (:weight bold :foreground ,(fl16 'my-green+2) :background ,(fl16 'my-bg+1)))))
+     `(mode-line-emphasis ((t (:inherit mode-line-highlight :weight bold))))
      `(mode-line-inactive ((default :box (:line-width -1 :style released-button) :width condensed :height 0.9)
                            (,cld88 (:foreground ,(fd88 'my-green) :background ,(fd88 'my-bg+1)))
                            (,cll88 (:foreground ,(fl88 'my-green) :background ,(fl88 'my-bg+1)))
@@ -289,7 +282,7 @@
                                (,cll88 (:foreground ,(fl88 'my-orange)))
                                (,cld16 (:foreground ,(fd16 'my-orange)))
                                (,cll16 (:foreground ,(fl16 'my-orange)))))
-     `(font-lock-special-keyword-face ((default :weight bold :slant italic)
+     `(font-lock-special-keyword-face ((default :slant italic)
                                        (,cld88 (:foreground ,(fd88 'my-orange)))
                                        (,cll88 (:foreground ,(fl88 'my-orange)))
                                        (,cld16 (:foreground ,(fd16 'my-orange)))
@@ -317,11 +310,11 @@
      `(font-lock-exit-face ((,cld88 (:foreground ,(fd88 'my-magenta)))
                             (,cll88 (:foreground ,(fl88 'my-magenta)))
                             (,cld16 (:foreground ,(fd16 'my-magenta)))
-                            (,cll16 (:foreground ,(fl16 'my-magenta))))) ; TODO: ???
+                            (,cll16 (:foreground ,(fl16 'my-magenta)))))
      `(font-lock-other-emphasized-face ((,cld88 (:foreground ,(fd88 'my-magenta)))
                                         (,cll88 (:foreground ,(fl88 'my-magenta)))
                                         (,cld16 (:foreground ,(fd16 'my-magenta)))
-                                        (,cll16 (:foreground ,(fl16 'my-magenta))))) ; TODO: ???
+                                        (,cll16 (:foreground ,(fl16 'my-magenta)))))
      `(c-annotation-face ((t (:inherit font-lock-constant-face))))
 
      `(font-lock-type-face ((default :weight bold)
@@ -355,7 +348,6 @@
                                      (,cld16 (:foreground ,(fd16 'my-orange) :background ,(fd16 'my-bg+1)))
                                      (,cll16 (:foreground ,(fl16 'my-orange) :background ,(fl16 'my-bg+1)))
                                      (t :foreground "magenta"))) ; e.g. CPP '!' or C op '!'
-
      `(font-lock-comment-face ((,cld88 (:foreground ,(fd88 'my-fg-1)))
                                (,cll88 (:foreground ,(fl88 'my-fg-1)))
                                (,cld16 (:foreground ,(fd16 'my-fg-1)))
@@ -385,7 +377,7 @@
 
      ;; show-paren
      `(show-paren-mismatch ((t (:inherit error))))
-     `(show-paren-match ((default :weight bold)
+     `(show-paren-match ((default :weight bold :strike-through t)
                          (,cld88 (:foreground ,(fd88 'my-cyan)))
                          (,cll88 (:foreground ,(fl88 'my-cyan)))
                          (,cld16 (:foreground ,(fd16 'my-cyan)))
@@ -422,7 +414,7 @@
               (,cll16 (:foreground ,(fl16 'my-yellow) :background ,(fl16 'my-bg+1)))))
 
      ;; column-marker-1 [ .. 4 ] ; supported by column-marker and python-mode
-     `(column-marker-1 ((t (:background "red" :underline t))))
+     `(column-marker-1 ((t (:inherit whitespace-line))))
 
      ;; python-mode - seems to currently font-lock incorrectly (see *Messages*, also w/ other themes)
      `(py-XXX-tag-face        ((t (:inherit font-lock-warning-face))))
@@ -455,7 +447,8 @@
                          (,cll88 (:foreground ,(fl88 'my-red+1)))
                          (,cld16 (:foreground ,(fd16 'my-red+1)))
                          (,cll16 (:foreground ,(fl16 'my-red+1)))))
-     `(diff-removed     ((,cld88 (:foreground ,(fd88 'my-red)))
+     `(diff-removed     ((default :slant italic)
+                         (,cld88 (:foreground ,(fd88 'my-red)))
                          (,cll88 (:foreground ,(fl88 'my-red)))
                          (,cld16 (:foreground ,(fd16 'my-red)))
                          (,cll16 (:foreground ,(fl16 'my-red)))))
@@ -471,6 +464,15 @@
                          (,cll16 (:foreground ,(fl16 'my-blue) :background ,(fl16 'my-bg-1)))))
 
      ;; dired ; TODO:
+;; dired-directory                     abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-flagged                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-header                        abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-ignored                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-mark                          abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-marked                        abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-perm-write                    abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-symlink                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+;; dired-warning                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
      ;; eshell - {*3*}: add light classes below
      `(eshell-prompt        ((t (:inherit minibuffer-prompt))))
@@ -481,7 +483,7 @@
      `(eshell-ls-executable ((,cld88 (:foreground ,(fd88 'my-orange) :weight bold))))
      `(eshell-ls-unreadable ((,cld88 (:foreground ,(fd88 'my-red)))))
      `(eshell-ls-missing    ((,cld88 (:foreground ,(fd88 'my-red+1)))))
-     `(eshell-ls-product    ((,cld88 (:foreground ,(fd88 'my-fg+1)))))
+     `(eshell-ls-product    ((,cld88 (:foreground ,(fd88 'my-fg-2)))))
      `(eshell-ls-special    ((,cld88 (:foreground ,(fd88 'my-magenta) :weight bold))))
      `(eshell-ls-symlink    ((,cld88 (:foreground ,(fd88 'my-blue) :underline t))))
 
@@ -500,17 +502,29 @@
      `(rainbow-delimiters-depth-12-face ((,cld88 (:foreground ,(fd88 'my-cyan-1)))))
 
      ;; whitespace and whitespace-mode
-     `(trailing-whitespace         ((,cld88 (:background ,(fd88 'my-red)))))
+     `(trailing-whitespace         ((,cld88 (:background ,(fd88 'my-bg-X)))
+                                    (,cll88 (:background ,(fl88 'my-bg-X)))
+                                    (,cld16 (:background ,(fd16 'my-bg-X)))
+                                    (,cll16 (:background ,(fl16 'my-bg-X)))))
      `(whitespace-trailing         ((t (:inherit trailing-whitespace))))
-     `(whitespace-space            ((,cld88 (:background ,(fd88 'my-bg+1)))))
-     `(whitespace-hspace           ((,cld88 (:background ,(fd88 'my-bg+1)))))
-     `(whitespace-tab              ((,cld88 (:background ,(fd88 'my-bg+1) :underline t))))
-     `(whitespace-newline          ((,cld88 (:background ,(fd88 'my-bg+2)))))
-     `(whitespace-line             ((,cld88 (:underline (:color ,(fd88 'my-yellow) :style wave))))) ; long lines
-     `(whitespace-space-before-tab ((,cld88 (:foreground ,(fd88 'my-bg+1)))))
-     `(whitespace-indentation      ((,cld88 (:foreground ,(fd88 'my-bg+1) :underline t))))
-     `(whitespace-empty            ((,cld88 (:background ,(fd88 'my-bg+1)))))
-     `(whitespace-space-after-tab  ((,cld88 (:background ,(fd88 'my-red)))))
+     `(whitespace-space            ((,cld88 (:background ,(fd88 'my-bg+1)))
+                                    (,cll88 (:background ,(fl88 'my-bg+1)))
+                                    (,cld16 (:background ,(fd16 'my-bg+1)))
+                                    (,cll16 (:background ,(fl16 'my-bg+1)))))
+     `(whitespace-hspace           ((t (:inherit whitespace-space))))
+     `(whitespace-tab              ((t (:inherit whitespace-space :underline t))))
+     `(whitespace-newline          ((,cld88 (:background ,(fd88 'my-bg+2)))
+                                    (,cll88 (:background ,(fl88 'my-bg+2)))
+                                    (,cld16 (:background ,(fd16 'my-bg+2)))
+                                    (,cll16 (:background ,(fl16 'my-bg+2)))))
+     `(whitespace-line             ((,cld88 (:underline (:color ,(fd88 'my-orange) :style wave))) ; long lines
+                                    (,cll88 (:underline (:color ,(fl88 'my-orange) :style wave)))
+                                    (,cld16 (:underline (:color ,(fd16 'my-orange) :style wave)))
+                                    (,cll16 (:underline (:color ,(fl16 'my-orange) :style wave)))))
+     `(whitespace-space-before-tab ((t (:inherit whitespace-space))))
+     `(whitespace-indentation      ((t (:inherit whitespace-space :underline t))))
+     `(whitespace-empty            ((t (:inherit whitespace-space))))
+     `(whitespace-space-after-tab  ((t (:inherit trailing-whitespace))))
 
      ;; which-func-mode
      `(which-func                  ((t (:inherit font-lock-function-name-face))))
@@ -530,6 +544,81 @@
                                     (,cll88 (:foreground ,(fl88 'my-magenta)))
                                     (,cld16 (:foreground ,(fd16 'my-magenta)))
                                     (,cll16 (:foreground ,(fl16 'my-magenta)))))
+
+     ;; Company-mode (auto-complete)
+     '(company-tooltip ((t (:inherit highlight))))
+     '(company-tooltip-selection ((t (:inherit match))))
+     '(company-tooltip-common ((t (:inherit company-tooltip :weight bold))))
+     '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold))))
+     '(company-echo ((t (:inherit minibuffer-prompt))))
+     '(company-echo-common ((t (:inherit minibuffer-noticeable-prompt))))
+     '(company-preview ((t (:inherit primary-selection))))
+     '(company-preview-common ((t (:inherit company-preview :weight bold))))
+     '(company-preview-search ((t (:inherit secondary-selection))))
+
+     ;; Org-mode
+     `(org-hide ((,cld88 (:foreground ,(fd88 'my-bg)))
+                 (,cll88 (:foreground ,(fl88 'my-bg)))
+                 (,cld16 (:foreground ,(fd16 'my-bg)))
+                 (,cll16 (:foreground ,(fl16 'my-bg)))
+                 (((background light)) (:foreground "white"))
+                 (((background dark)) (:foreground "black"))
+                 ))
+     `(org-level-1 ((t (:inherit font-lock-special-keyword-face))))
+     `(org-level-2 ((t (:inherit font-lock-keyword-face))))
+     `(org-level-3 ((t (:inherit font-lock-builtin-face))))
+     `(org-level-4 ((t (:inherit font-lock-color-constant-face))))
+     `(org-level-5 ((t (:inherit font-lock-constant-face))))
+     `(org-level-6 ((t (:inherit font-lock-type-face))))
+     `(org-level-7 ((t (:inherit font-lock-other-type-face))))
+     `(org-level-8 ((t (:inherit font-lock-function-name-face))))
+     `(org-special-keyword ((t (:inherit font-lock-special-keyword-face))))
+     `(org-drawer ((t (:inherit font-lock-function-name-face))))
+     `(org-property-value ((t (:inherit font-lock-string-face))))
+     `(org-column ((t (:inherit font-lock-variable-name-face))))
+     `(org-column-title ((t (:inherit org-column :weight bold))))
+     `(org-agenda-column-dateline ((t (:inherit font-lock-special-keyword-face))))
+     `(org-warning ((t (:inherit warning))))
+     `(org-archived ((t (:inherit font-lock-comment-face))))
+     `(org-link ((t (:inherit link))))
+     `(org-footnote ((t (:inherit font-lock-comment-face))))
+     `(org-ellipsis ((t (:inherit whitespace-line))))
+     `(org-target ((t (:inherit link-visited))))
+     `(org-date ((t (:inherit font-lock-doc-string-face))))
+     `(org-date-selected ((t (:inherit font-lock-doc-face))))
+     `(org-sexp-date ((t (:inherit font-lock-regexp-grouping-construct))))
+     `(org-tag ((t (:inherit (highlight)))))
+     `(org-list-dt ((t (:inherit font-lock-constant-face))))
+     `(org-todo ((t (:inherit warning))))
+     `(org-done ((t (:inherit success))))
+     `(org-agenda-done ((t (:inherit success))))
+     `(org-headline-done ((t (:inherit success :weight bold))))
+     `(org-checkbox ((t (:inherit font-lock-constant-face))))
+     `(org-table ((t (:inherit  font-lock-function-name-face))))
+     `(org-formula ((t (:inherit font-lock-function-name-face))))
+     `(org-code ((t (:inherit font-lock-doc-face))))
+     `(org-meta-line ((t (:inherit font-lock-other-type-face))))
+     `(org-document-title ((t (:inherit font-lock-negation-char-face))))
+     `(org-document-info ((t (:inherit font-lock-comment-face))))
+     `(org-document-info-keyword ((t (:inherit font-lock-comment-delimiter-face))))
+     `(org-block ((t (:inherit font-lock-comment-face))))
+     `(org-block-background ((t (:inherit whitespace-space))))
+     `(org-verbatim ((t (:inherit font-lock-comment-delimiter-face))))
+     `(org-clock-overlay ((t (:inherit secondary-selection))))
+     `(org-agenda-structure ((t (:inherit font-lock-function-name-face))))
+     `(org-scheduled ((t (:inherit diff-changed))))
+     `(org-scheduled-today ((t (:inherit diff-removed))))
+     `(org-agenda-dimmed-todo-face ((t (:inherit diff-added))))
+     `(org-scheduled-previously ((t (:inherit diff-added))))
+     `(org-upcoming-deadline ((t (:inherit diff-changed))))
+     `(org-agenda-restriction-lock ((t (:inherit font-lock-other-type-face))))
+     `(org-agenda-filter-tags ((t (:inherit font-lock-other-type-face))))
+     `(org-agenda-filter-category ((t (:inherit font-lock-other-type-face))))
+     `(org-time-grid ((t (:inherit font-lock-variable-name-face))))
+     `(org-agenda-diary ((t (:inherit font-lock-function-name-face))))
+     `(org-agenda-calendar-event ((t (:inherit font-lock-regexp-grouping-backslash))))
+     `(org-agenda-calendar-sexp ((t (:inherit font-lock-regexp-grouping-construct))))
+     `(org-latex-and-export-specials ((t (:inherid font-lock-negation-char-face))))
      )
 
     (custom-theme-set-variables
@@ -542,8 +631,8 @@
 
     (eval-after-load 'highlight-symbol
       `(setq highlight-symbol-colors
-       '( ,(fc 'my-yellow) ,(fc 'my-red)   ,(fc 'my-cyan) ,(fc 'my-magenta) ,(fc 'my-green)
-    ,(fc 'my-orange) ,(fc 'my-red+1) ,(fc 'my-blue) ,(fc 'my-fg-2) )))
+             '( ,(fc 'my-yellow) ,(fc 'my-red)   ,(fc 'my-cyan) ,(fc 'my-magenta) ,(fc 'my-green)
+                ,(fc 'my-orange) ,(fc 'my-red+1) ,(fc 'my-blue) ,(fc 'my-fg-2) )))
 
     (eval-after-load 'term
       `(setq ansi-term-color-vector ; colors for the ansi-term; used by shell mode
@@ -557,14 +646,20 @@
 
 (provide-theme 'cuatroporocho)
 
+;; --- scratchpad
 
 ;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Faces.html
 ;; https://github.com/fniessen/color-theme-leuven/blob/master/color-theme-leuven.el
-;; http://edward.oconnor.cx/config/elisp/hober2-theme.el -> tricks mit custom-theme variables
-;; http://emacsfodder.github.com/DeepBlueDay-theme.el -> tricks mit class fuer verschiedene min-colors / backgrounds
-;; https://github.com/m00natic/dot-emacs/blob/master/init.el -> mit default, colors 89, minimal, default/class/t settings (plus andere)
-;; nice: http://img119.imageshack.us/my.php?image=gvimeveningqu9.png, see here: http://www.reddit.com/r/programming/comments/760yt/ask_reddit_help_me_find_a_vim_color_scheme
+;; http://edward.oconnor.cx/config/elisp/hober2-theme.el -> tricks with custom-theme variables
+;; http://emacsfodder.github.com/DeepBlueDay-theme.el -> tricks with class for different min-colors / backgrounds
+;; https://github.com/m00natic/dot-emacs/blob/master/init.el -> with defaults, colors 89, minimal, default/class/t settings
+;; nice: http://img119.imageshack.us/my.php?image=gvimeveningqu9.png,
+;;   see here: http://www.reddit.com/r/programming/comments/760yt/ask_reddit_help_me_find_a_vim_color_scheme
 ;; many faces: http://emacswiki.org/emacs/color-theme-ahei.el
+;; visualize: http://chriskempson.github.io/base16/#tomorrow
+;; brewer palettes for emacs: https://github.com/jrnold/color-theme-brewer/blob/master/colorbrewer.el
+;; palette / colorschemes:http://tools.medialab.sciences-po.fr/iwanthue/ http://colorschemedesigner.com/
+;;   http://www.workwithcolor.com/hsl-color-schemer-01.htm http://www.colourlovers.com/colors/most-loved/all-time
 
 ;; Local Variables:
 ;; no-byte-compile: t
