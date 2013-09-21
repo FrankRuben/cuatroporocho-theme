@@ -1,6 +1,6 @@
 ;; ============================================================================
 ;; File:            cuatroporocho-theme.el
-;; Last changed by: Frank Ruben   on 18-09-2013 22:29:57
+;; Last changed by: Frank Ruben   on 21-09-2013 18:25:15
 ;; Purpose:         Color theme for Emacs,
 ;;                  technically and color-wise initially based on zenburn,
 ;;                  but changed quite drastically from there, both WRT colors
@@ -12,6 +12,25 @@
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
 ;; Note:            Use M-x list-faces-display to find faces in a buffer
 ;; ============================================================================
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING. If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (unless (>= 24 emacs-major-version)
   (error "cuatroporocho-theme requires Emacs 24+."))
@@ -62,8 +81,8 @@
                        (my-cyan    "cyan"         "#6CDFEA") ; #1693A5 #00AD8E
                        (my-cyan-1  "#00FFFF"      "#ADD8C7") ; #69D2E7 #6ECFBD ; lightcyan
                        (my-fg      "black"        "#060F00")
-                       (my-fg-1    "#777777"      "#0A1A00") ; gray
-                       (my-fg-2    "#777777"      "#0E2400") ; gray
+                       (my-fg-1    "#777777"      "#5D5D5B") ; gray
+                       (my-fg-2    "#777777"      "#464C43") ; gray
                        (my-green+4 "green"        "#3D4D33")
                        (my-green+3 "green"        "#3A5926")
                        (my-green+2 "green"        "#376619")
@@ -386,10 +405,7 @@
      ;; ido-mode
      `(ido-first-match ((t (:inherit match))))
      `(ido-only-match  ((t (:inherit match :weight bold :underline t))))
-     `(ido-subdir ((,cld88 (:foreground ,(fd88 'my-blue)))
-                   (,cll88 (:foreground ,(fl88 'my-blue)))
-                   (,cld16 (:foreground ,(fd16 'my-blue)))
-                   (,cll16 (:foreground ,(fl16 'my-blue)))))
+     `(ido-subdir      ((t (:inherit link :underline t))))
 
      ;; hl-line-mode
      `(hl-line      ((t (:inherit fringe))))
@@ -463,31 +479,38 @@
                          (,cld16 (:foreground ,(fd16 'my-blue) :background ,(fd16 'my-bg-1)))
                          (,cll16 (:foreground ,(fl16 'my-blue) :background ,(fl16 'my-bg-1)))))
 
-     ;; dired ; TODO:
-;; dired-directory                     abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-flagged                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-header                        abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-ignored                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-mark                          abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-marked                        abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-perm-write                    abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-symlink                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
-;; dired-warning                       abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+     ;; Magit
+     `(magit-branch         ((t (:inherit diff-changed))))
+     `(magit-header         ((t (:inherit diff-header))))
+     `(magit-section-title  ((t (:inherit diff-file-header))))
+     `(magit-log-sha1       ((t (:inherit warning))))
+     `(magit-item-highlight ((t (:inherit font-lock-special-keyword-face))))
 
-     ;; eshell - {*3*}: add light classes below
+     ;; dired
+     `(dired-directory      ((t (:inherit link :weight bold))))
+     `(dired-flagged        ((t (:inherit font-lock-special-keyword-face))))
+     `(dired-header         ((t (:inherit diff-header))))
+     `(dired-ignored        ((t (:inherit font-lock-comment-face))))
+     `(dired-mark           ((t (:inherid font-lock-negation-char-face))))
+     `(dired-marked         ((t (:inherit font-lock-keyword-face))))
+     `(dired-perm-write     ((t (:inherit font-lock-reference-face))))
+     `(dired-symlink        ((t (:inherit link :underline t))))
+     `(dired-warning        ((t (:inherit warning))))
+
+     ;; eshell
      `(eshell-prompt        ((t (:inherit minibuffer-prompt))))
-     `(eshell-ls-archive    ((,cld88 (:foreground ,(fd88 'my-fg)   :weight bold))))
-     `(eshell-ls-backup     ((,cld88 (:foreground ,(fd88 'my-fg-1)))))
-     `(eshell-ls-clutter    ((,cld88 (:foreground ,(fd88 'my-fg-1)))))
-     `(eshell-ls-directory  ((,cld88 (:foreground ,(fd88 'my-blue) :weight bold))))
-     `(eshell-ls-executable ((,cld88 (:foreground ,(fd88 'my-orange) :weight bold))))
-     `(eshell-ls-unreadable ((,cld88 (:foreground ,(fd88 'my-red)))))
-     `(eshell-ls-missing    ((,cld88 (:foreground ,(fd88 'my-red+1)))))
-     `(eshell-ls-product    ((,cld88 (:foreground ,(fd88 'my-fg-2)))))
-     `(eshell-ls-special    ((,cld88 (:foreground ,(fd88 'my-magenta) :weight bold))))
-     `(eshell-ls-symlink    ((,cld88 (:foreground ,(fd88 'my-blue) :underline t))))
+     `(eshell-ls-archive    ((t (:inherit font-lock-comment-face :slant italic))))
+     `(eshell-ls-backup     ((t (:inherit font-lock-comment-face))))
+     `(eshell-ls-clutter    ((t (:inherit font-lock-comment-delimiter-face))))
+     `(eshell-ls-directory  ((t (:inherit dired-directory))))
+     `(eshell-ls-executable ((t (:inherit font-lock-keyword-face))))
+     `(eshell-ls-unreadable ((t (:inherit error))))
+     `(eshell-ls-missing    ((t (:inherit warning))))
+     `(eshell-ls-product    ((t (:inherit font-lock-string-face)))) ; for files generated from source files
+     `(eshell-ls-special    ((t (:inherit font-lock-special-keyword-face))))
+     `(eshell-ls-symlink    ((t (:inherit dired-symlink))))
 
-     ;; rainbow-delimiters
+     ;; rainbow-delimiters  - {*3*}: add light classes
      `(rainbow-delimiters-depth-1-face  ((,cld88 (:foreground ,(fd88 'my-cyan)))))
      `(rainbow-delimiters-depth-2-face  ((,cld88 (:foreground ,(fd88 'my-cyan-1)))))
      `(rainbow-delimiters-depth-3-face  ((,cld88 (:foreground ,(fd88 'my-blue-2)))))
