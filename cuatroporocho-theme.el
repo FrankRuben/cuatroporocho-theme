@@ -1,17 +1,16 @@
-;; ============================================================================
-;; File:            cuatroporocho-theme.el
-;; Last changed by: NN  on 28-09-2013 19:34:48
-;; Purpose:         Color theme for Emacs,
-;;                  technically and color-wise initially based on zenburn,
-;;                  but changed quite drastically from there, both WRT colors
-;;                  and implementation.
-;;                  The color theme does currently contain colors
-;;                  for win32 graphics mode and win32 console mode.
+;;; cuatroporocho-theme.el --- Color theme for Emacs.
+
+;;; Commentary:
+;;    Technically and color-wise initially based on zenburn, but changed quite drastically from there, both WRT colors
+;;    and implementation. The color theme does currently contain colors for win32 graphics mode and win32 console mode
+;;    and Linux/X11.
+
+;; Last changed by: NN  on 02-02-2014 20:20:45
 ;; Note:            As zenburn, this still requires a special load:
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
 ;; Note:            Use M-x list-faces-display to find faces in a buffer
-;; ============================================================================
+;; ===================================================================
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -31,6 +30,8 @@
 ;; Floor, Boston, MA 02110-1301, USA.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Code:
 
 (unless (>= 24 emacs-major-version)
   (error "cuatroporocho-theme requires Emacs 24+."))
@@ -111,7 +112,6 @@
             (fc   (c) (my-get-color c (eq cuatroporocho-background-mode 'light)))) ; TODO: 16/88, e.g. display-graphic-p?
     (custom-theme-set-faces
      'cuatroporocho
-     ;; basic coloring (most faces inherit from 'success, 'error, 'warning etc.)
      `(default      ((default :underline nil :slant normal :weight normal :overline nil :width normal
                        :inverse-video nil :box nil :strike-through nil :stipple nil)
                      (,cld88 (:foreground ,(fd88 'my-fg) :background ,(fd88 'my-bg)))
@@ -301,7 +301,7 @@
                                (,cll88 (:foreground ,(fl88 'my-orange)))
                                (,cld16 (:foreground ,(fd16 'my-orange)))
                                (,cll16 (:foreground ,(fl16 'my-orange)))))
-     `(font-lock-special-keyword-face ((default :slant italic)
+     `(font-lock-special-keyword-face ((default :weight bold :slant italic)
                                        (,cld88 (:foreground ,(fd88 'my-orange)))
                                        (,cll88 (:foreground ,(fl88 'my-orange)))
                                        (,cld16 (:foreground ,(fd16 'my-orange)))
@@ -402,6 +402,10 @@
                          (,cld16 (:foreground ,(fd16 'my-cyan)))
                          (,cll16 (:foreground ,(fl16 'my-cyan)))))
 
+     ;; flycheck
+     '(flycheck-error ((t (:inherit error))))
+     '(flycheck-warning ((t (:inherit warning))))
+
      ;; ido-mode
      `(ido-first-match ((t (:inherit match))))
      `(ido-only-match  ((t (:inherit match :weight bold :underline t))))
@@ -422,7 +426,61 @@
                                  (,cld88 (:underline (:color ,(fd16 'my-magenta) :style wave)))
                                  (,cld88 (:underline (:color ,(fl16 'my-magenta) :style wave)))
                                  (t (:inverse-video t))))
-
+     ;; hi-lock - highlight-symbol-at-point
+     `(hi-yellow
+       ((,cld88 (:background ,(fd88 'my-yellow)))
+        (,cll88 (:background ,(fl88 'my-yellow)))
+        (,cld16 (:background ,(fd16 'my-yellow)))
+        (,cll16 (:background ,(fl16 'my-yellow)))
+        (t (:background "yellow"))))
+     `(hi-pink
+       ((,cld88 (:background ,(fd88 'my-magenta)))
+        (,cll88 (:background ,(fl88 'my-magenta)))
+        (,cld16 (:background ,(fd16 'my-magenta)))
+        (,cll16 (:background ,(fl16 'my-magenta)))
+        (t (:background "pink"))))
+     `(hi-green
+       ((,cld88 (:background ,(fd88 'my-green)))
+        (,cll88 (:background ,(fl88 'my-green)))
+        (,cld16 (:background ,(fd16 'my-green)))
+        (,cll16 (:background ,(fl16 'my-green)))
+        (t (:background "green"))))
+     `(hi-blue
+       ((,cld88 (:background ,(fd88 'my-blue)))
+        (,cll88 (:background ,(fl88 'my-blue)))
+        (,cld16 (:background ,(fd16 'my-blue)))
+        (,cll16 (:background ,(fl16 'my-blue)))
+        (t (:background "blue"))))
+     `(hi-black-b
+       ((,cld88 (:background ,(fd88 'my-bg-X)))
+        (,cll88 (:background ,(fl88 'my-bg-X)))
+        (,cld16 (:background ,(fd16 'my-bg-X)))
+        (,cll16 (:background ,(fl16 'my-bg-X)))
+        (t (:background "pink"))))
+     `(hi-blue-b
+       ((,cld88 (:background ,(fd88 'my-cyan)))
+        (,cll88 (:background ,(fl88 'my-cyan)))
+        (,cld16 (:background ,(fd16 'my-cyan)))
+        (,cll16 (:background ,(fl16 'my-cyan)))
+        (t (:background "cyan"))))
+     `(hi-red-b
+       ((,cld88 (:background ,(fd88 'my-orange)))
+        (,cll88 (:background ,(fl88 'my-orange)))
+        (,cld16 (:background ,(fd16 'my-orange)))
+        (,cll16 (:background ,(fl16 'my-orange)))
+        (t (:background "orange"))))
+     `(hi-green-b
+       ((,cld88 (:background ,(fd88 'my-green+2)))
+        (,cll88 (:background ,(fl88 'my-green+2)))
+        (,cld16 (:background ,(fd16 'my-green+2)))
+        (,cll16 (:background ,(fl16 'my-green+2)))
+        (t (:background "green"))))
+     `(hi-black-hb
+       ((,cld88 (:background ,(fd88 'my-bg+2)))
+        (,cll88 (:background ,(fl88 'my-bg+2)))
+        (,cld16 (:background ,(fd16 'my-bg+2)))
+        (,cll16 (:background ,(fl16 'my-bg+2)))
+        (t (:background "yellow"))))
      ;; linum-mode
      `(linum ((,cld88 (:foreground ,(fd88 'my-yellow) :background ,(fd88 'my-bg+1)))
               (,cll88 (:foreground ,(fl88 'my-yellow) :background ,(fl88 'my-bg+1)))
@@ -642,12 +700,56 @@
      `(org-agenda-calendar-event ((t (:inherit font-lock-regexp-grouping-backslash))))
      `(org-agenda-calendar-sexp ((t (:inherit font-lock-regexp-grouping-construct))))
      `(org-latex-and-export-specials ((t (:inherid font-lock-negation-char-face))))
+
+     ;; term - colors defined here will be used in `ansi-term-color-vector'
+     `(term-color-black ((,cld88 (:foreground ,(fd88 'my-bg) :background ,(fd88 'my-bg-1)))
+                         (,cll88 (:foreground ,(fl88 'my-bg) :background ,(fl88 'my-bg-1)))
+                         (,cld16 (:foreground ,(fd16 'my-bg) :background ,(fd16 'my-bg-1)))
+                         (,cll16 (:foreground ,(fl16 'my-bg) :background ,(fl16 'my-bg-1)))
+                         (t (:foreground "black" :background "darkgray"))))
+     `(term-color-red ((,cld88 (:foreground ,(fd88 'my-red+1) :background ,(fd88 'my-red)))
+                       (,cll88 (:foreground ,(fl88 'my-red+1) :background ,(fl88 'my-red)))
+                       (,cld16 (:foreground ,(fd16 'my-red+1) :background ,(fd16 'my-red)))
+                       (,cll16 (:foreground ,(fl16 'my-red+1) :background ,(fl16 'my-red)))
+                       (t (:foreground "orange" :background "red"))))
+     `(term-color-green ((,cld88 (:foreground ,(fd88 'my-green) :background ,(fd88 'my-green+2)))
+                         (,cll88 (:foreground ,(fl88 'my-green) :background ,(fl88 'my-green+2)))
+                         (,cld16 (:foreground ,(fd16 'my-green) :background ,(fd16 'my-green+2)))
+                         (,cll16 (:foreground ,(fl16 'my-green) :background ,(fl16 'my-green+2)))
+                         (t (:foreground "green" :background "lightgreen"))))
+     `(term-color-yellow ((,cld88 (:foreground ,(fd88 'my-orange) :background ,(fd88 'my-yellow)))
+                          (,cll88 (:foreground ,(fl88 'my-orange) :background ,(fl88 'my-yellow)))
+                          (,cld16 (:foreground ,(fd16 'my-orange) :background ,(fd16 'my-yellow)))
+                          (,cll16 (:foreground ,(fl16 'my-orange) :background ,(fl16 'my-yellow)))
+                          (t (:foreground "orange" :background "yellow"))))
+     `(term-color-blue ((,cld88 (:foreground ,(fd88 'my-blue) :background ,(fd88 'my-blue-2)))
+                        (,cll88 (:foreground ,(fl88 'my-blue) :background ,(fl88 'my-blue-2)))
+                        (,cld16 (:foreground ,(fd16 'my-blue) :background ,(fd16 'my-blue-2)))
+                        (,cll16 (:foreground ,(fl16 'my-blue) :background ,(fl16 'my-blue-2)))
+                        (t (:foreground "blue" :background "lightblue"))))
+     `(term-color-magenta ((,cld88 (:foreground ,(fd88 'my-magenta) :background ,(fd88 'my-red)))
+                           (,cll88 (:foreground ,(fl88 'my-magenta) :background ,(fl88 'my-red)))
+                           (,cld16 (:foreground ,(fd16 'my-magenta) :background ,(fd16 'my-red)))
+                           (,cll16 (:foreground ,(fl16 'my-magenta) :background ,(fl16 'my-red)))
+                           (t (:foreground "magenta" :background "red"))))
+     `(term-color-cyan ((,cld88 (:foreground ,(fd88 'my-cyan) :background ,(fd88 'my-blue)))
+                        (,cll88 (:foreground ,(fl88 'my-cyan) :background ,(fl88 'my-blue)))
+                        (,cld16 (:foreground ,(fd16 'my-cyan) :background ,(fd16 'my-blue)))
+                        (,cll16 (:foreground ,(fl16 'my-cyan) :background ,(fl16 'my-blue)))
+                        (t (:foreground "cyan" :background "blue"))))
+     `(term-color-white ((,cld88 (:foreground ,(fd88 'my-fg) :background ,(fd88 'my-fg-1)))
+                         (,cll88 (:foreground ,(fl88 'my-fg) :background ,(fl88 'my-fg-1)))
+                         (,cld16 (:foreground ,(fd16 'my-fg) :background ,(fd16 'my-fg-1)))
+                         (,cll16 (:foreground ,(fl16 'my-fg) :background ,(fl16 'my-fg-1)))
+                         (t (:foreground "white" :background "lightgray"))))
+     '(term-default-fg-color ((t (:inherit term-color-white))))
+     '(term-default-bg-color ((t (:inherit term-color-black))))
      )
 
     (custom-theme-set-variables
      'cuatroporocho
      '(frame-background-mode cuatroporocho-background-mode)
-     `(ansi-color-names-vector ; black, red, green, yellow, blue, magenta, cyan, white
+     `(ansi-color-names-vector          ; black, red, green, yellow, blue, magenta, cyan, white
        [ ,(fc 'my-bg)   ,(fc 'my-red)     ,(fc 'my-green) ,(fc 'my-yellow)
          ,(fc 'my-blue) ,(fc 'my-magenta) ,(fc 'my-cyan)  ,(fc 'my-fg) ] )
      `(fci-rule-color ,(fc 'my-bg-1))) ; fill-column-indicator
@@ -655,19 +757,12 @@
     (eval-after-load 'highlight-symbol
       `(setq highlight-symbol-colors
              '( ,(fc 'my-yellow) ,(fc 'my-red)   ,(fc 'my-cyan) ,(fc 'my-magenta) ,(fc 'my-green)
-                ,(fc 'my-orange) ,(fc 'my-red+1) ,(fc 'my-blue) ,(fc 'my-fg-2) )))
-
-    (eval-after-load 'term
-      `(setq ansi-term-color-vector ; colors for the ansi-term; used by shell mode
-             [ 'unspecified ,(fc 'my-bg)   ,(fc 'my-red)     ,(fc 'my-green) ,(fc 'my-yellow)
-                            ,(fc 'my-blue) ,(fc 'my-magenta) ,(fc 'my-cyan)  ,(fc 'my-fg) ] )))) ; C-x e here
+                ,(fc 'my-orange) ,(fc 'my-red+1) ,(fc 'my-blue) ,(fc 'my-fg-2) ))))) ; C-x e here
 
 ;;;###autoload
 (when (and load-file-name (boundp 'custom-theme-load-path))
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
-
-(provide-theme 'cuatroporocho)
 
 ;; --- scratchpad
 
@@ -687,3 +782,5 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
+(provide-theme 'cuatroporocho)
+;;; cuatroporocho-theme.el ends here
