@@ -5,7 +5,7 @@
 ;;    and implementation. The color theme does currently contain colors for win32 graphics mode and win32 console mode
 ;;    and Linux/X11.
 
-;; Last changed by: NN  on 02-02-2014 20:20:45
+;; Last changed by: NN  on 09-04-2014 08:09:09
 ;; Note:            As zenburn, this still requires a special load:
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
@@ -46,7 +46,11 @@
   ;;                               console        graphics
   ;; colors with +x are lighter, colors with -x are darker
   ;;  display-visual-class -> win32 UI: true-color ; win32 console: static-color
+  ;;                          linux/X:  true-color ; linux/ubuntu terminal: static-color
   ;;  display-color-cells  -> win32 UI: 16777216   ; win32 console: 16
+  ;;                          linux/X:  16777216   ; linux/ubuntu terminal: 256
+  ;;  linux terminal colors do not work nice w/ 8 color terminals,
+  ;;  they assume: `TERM=xterm-256color emacsclient -nw -c'
   (let ((dark-colors '((my-bg+2    "#884400"      "#4f4f4f") ; fringe and highlighted background; brown
                        (my-bg+1    "#777777"      "#2f2f2f") ; string background and inactive modeline background; darkgray
                        (my-bg      "black"        "#1f1f1f") ; default background
