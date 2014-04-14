@@ -19,5 +19,5 @@ both for dark and light mode, which are implemented by four color theme classes.
 Screenshots
 -----------
 
-- ![Light](https://cloud.githubusercontent.com/assets/2405440/2696332/80afd2ea-c3e1-11e3-99c5-157169379453.png)
-- ![Dark](https://cloud.githubusercontent.com/assets/2405440/2696335/8d2d2bd0-c3e1-11e3-97d9-b232596c4ced.png)
+![Light](https://cloud.githubusercontent.com/assets/2405440/2696332/80afd2ea-c3e1-11e3-99c5-157169379453.png)
+![Dark](https://cloud.githubusercontent.com/assets/2405440/2696335/8d2d2bd0-c3e1-11e3-97d9-b232596c4ced.png)
