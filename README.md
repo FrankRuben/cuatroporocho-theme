@@ -9,7 +9,7 @@ but changed quite drastically from there, both WRT colors and implementation.
 The color theme does currently contain colors for win32 graphics mode and win32 console mode,
 both for dark and light mode, which are implemented by four color theme classes.
 
-* *Note:* not yet complete, some faces e.g. for dired are not yet defined.
+* *Note:* not yet complete, some faces are not yet defined.
   Anyway, programming faces are supported.
   
 * *Note:* As zenburn, this still requires a special load:
