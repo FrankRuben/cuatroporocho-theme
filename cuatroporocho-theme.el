@@ -39,7 +39,7 @@
 (deftheme cuatroporocho "The cuatro por ocho color theme")
 
 ;;(defvar cuatroporocho-background-mode 'dark)
-(defvar cuatroporocho-background-mode 'light) ; TODO: not yet complete; see {*3*}
+(defvar cuatroporocho-background-mode 'light)
 
 (defun my-get-color (which-color &optional light-mode for-terminal)
   ;;                               win32          win32
