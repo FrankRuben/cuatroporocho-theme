@@ -10,6 +10,7 @@
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
 ;; Note:            Use M-x list-faces-display to find faces in a buffer
+;; Note:            For gallery, see: http://pawelbx.github.io/emacs-theme-gallery/
 ;; ===================================================================
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
