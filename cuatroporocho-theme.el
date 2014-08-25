@@ -543,6 +543,9 @@
                          (,cll16 (:foreground ,(fl16 'my-blue) :background ,(fl16 'my-bg-1)))))
 
      ;; Magit
+     `(magit-diff-add       ((t (:inherit diff-added))))
+     `(magit-diff-del       ((t (:inherit diff-removed))))
+     `(magit-diff-none      ((t (:inherit diff-context))))
      `(magit-branch         ((t (:inherit diff-changed))))
      `(magit-header         ((t (:inherit diff-header))))
      `(magit-section-title  ((t (:inherit diff-file-header))))
