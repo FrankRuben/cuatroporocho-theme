@@ -6,8 +6,12 @@ The cuatro por ocho emacs color theme.
 Color theme for Emacs, technically and color-wise initially based on zenburn,
 but changed quite drastically from there, both WRT colors and implementation.
 
-The color theme does currently contain colors for win32 graphics mode and win32 console mode,
-both for dark and light mode, which are implemented by four color theme classes.
+The color theme does currently contain colors for linux and win32 graphics mode 
+and linux and win32 console mode,
+all for dark and light mode, and all implemented by four color theme classes.
+The linux console mode does have a very limited color set and I'm usually not
+using it, so that one is not nice and not complete.
+Whether the beholder finds the other modes nice lies in his or her eyes...
 
 * *Note:* not yet complete, some faces are not yet defined.
   Anyway, programming faces are supported.
