@@ -5,7 +5,7 @@
 ;;    and implementation. The color theme does currently contain colors for win32 graphics mode and win32 console mode
 ;;    and Linux/X11.
 
-;; Last changed by: NN  on 09-04-2014 08:09:09
+;; Last changed by: NN  on 26-03-2015 06:24:10
 ;; Note:            As zenburn, this still requires a special load:
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
@@ -402,10 +402,10 @@
      ;; show-paren
      `(show-paren-mismatch ((t (:inherit error))))
      `(show-paren-match ((default :weight bold :strike-through t)
-                         (,cld88 (:foreground ,(fd88 'my-cyan)))
-                         (,cll88 (:foreground ,(fl88 'my-cyan)))
-                         (,cld16 (:foreground ,(fd16 'my-cyan)))
-                         (,cll16 (:foreground ,(fl16 'my-cyan)))))
+                         (,cld88 (:foreground ,(fd88 'my-cyan) :background ,(fd88 'my-bg+2)))
+                         (,cll88 (:foreground ,(fl88 'my-cyan) :background ,(fl88 'my-bg+2)))
+                         (,cld16 (:foreground ,(fd16 'my-cyan) :background ,(fd16 'my-bg+2)))
+                         (,cll16 (:foreground ,(fl16 'my-cyan) :background ,(fl16 'my-bg+2)))))
 
      ;; flycheck
      '(flycheck-error ((t (:inherit error))))
