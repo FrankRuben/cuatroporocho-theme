@@ -5,7 +5,7 @@
 ;;    and implementation. The color theme does currently contain colors for win32 graphics mode and win32 console mode
 ;;    and Linux/X11.
 
-;; Last changed by: NN  on 26-03-2015 06:24:10
+;; Last changed by: NN  on 13-06-2016 20:17:40
 ;; Note:            As zenburn, this still requires a special load:
 ;;       (progn (load-theme 'cuatroporocho t) (load "cuatroporocho-theme"))
 ;; Note:            Use M-x rainbow-mode to display the color codes and constants
@@ -231,16 +231,17 @@
                                          (,cld16 (:foreground ,(fd16 'my-blue)))
                                          (,cll16 (:foreground ,(fl16 'my-blue)))
                                          (t :foreground "blue")))
-     `(compilation-error ((t (:inherit error))))
      `(compilation-face ((,cld88 (:foreground ,(fd88 'my-fg)))
                          (,cll88 (:foreground ,(fl88 'my-fg)))
                          (,cld16 (:foreground ,(fd16 'my-fg)))
                          (,cll16 (:foreground ,(fl16 'my-fg)))))
-     `(compilation-info ((default :underline t)
-                         (,cld88 (:foreground ,(fd88 'my-green+3)))
-                         (,cll88 (:foreground ,(fl88 'my-green+3)))
-                         (,cld16 (:foreground ,(fd16 'my-green+3)))
-                         (,cll16 (:foreground ,(fl16 'my-green+3))))) ; file name (also in grep)
+     `(compilation-error ((t (:inherit error))))
+     `(compilation-warning-face ((t (:inherit warning))))
+     `(compilation-info-face ((default :underline t)
+                              (,cld88 (:foreground ,(fd88 'my-green+3)))
+                              (,cll88 (:foreground ,(fl88 'my-green+3)))
+                              (,cld16 (:foreground ,(fd16 'my-green+3)))
+                              (,cll16 (:foreground ,(fl16 'my-green+3))))) ; file name (also in grep)
      `(compilation-leave-directory-face ((t (:inherit compilation-enter-directory-face))))
      `(compilation-line-face ((,cld88 (:foreground ,(fd88 'my-yellow)))
                               (,cll88 (:foreground ,(fl88 'my-yellow)))
@@ -252,7 +253,10 @@
                                  (,cld16 (:foreground ,(fd16 'my-orange)))
                                  (,cll16 (:foreground ,(fl16 'my-orange)))
                                  (t :foreground "magenta")))
-     `(compilation-warning ((t (:inherit warning))))
+     '(compilation-mode-line-exit ((t (:inherit compilation-info-face))))
+     '(compilation-mode-line-fail ((t (:inherit compilation-error))))
+     '(compilation-mode-line-run ((t (:inherit compilation-line-face))))
+
      `(comint-highlight-input  ((t (:inherit highlight))))
      `(comint-highlight-prompt ((t (:inherit minibuffer-prompt))))
      `(next-error ((t (:inherit (highlight)))))
@@ -289,7 +293,8 @@
      ;; etc
      `(menu ((t (:inherit default))))
      `(toolbar ((t (:inherit default))))
-     `(escape-glyph-face ((t (:inherit font-lock-negation-char-face)))) ; e.g. ^M
+     `(escape-glyph ((t (:inherit font-lock-negation-char-face)))) ; e.g. ^M
+     `(nobreak-space ((t (:inherit font-lock-warning-face))))
      `(info-xref ((t (:inherit link))))
      `(info-xref-visited ((t (:inherit link-visited))))
      `(info-menu-star ((t (:inherit highlight))))
@@ -306,12 +311,6 @@
                                (,cll88 (:foreground ,(fl88 'my-orange)))
                                (,cld16 (:foreground ,(fd16 'my-orange)))
                                (,cll16 (:foreground ,(fl16 'my-orange)))))
-     `(font-lock-special-keyword-face ((default :weight bold :slant italic)
-                                       (,cld88 (:foreground ,(fd88 'my-orange)))
-                                       (,cll88 (:foreground ,(fl88 'my-orange)))
-                                       (,cld16 (:foreground ,(fd16 'my-orange)))
-                                       (,cll16 (:foreground ,(fl16 'my-orange)))
-                                       (t :foreground "magenta")))
      `(font-lock-builtin-face ((default :weight bold)
                                (,cld88 (:foreground ,(fd88 'my-yellow)))
                                (,cll88 (:foreground ,(fl88 'my-yellow)))
@@ -321,36 +320,16 @@
                                 (,cll88 (:foreground ,(fl88 'my-yellow)))
                                 (,cld16 (:foreground ,(fd16 'my-yellow)))
                                 (,cll16 (:foreground ,(fl16 'my-yellow))))) ; e.g. elisp 'zzz, C macro constants
-     `(font-lock-color-constant-face ((default :slant italic)
-                                      (,cld88 (:foreground ,(fd88 'my-yellow)))
-                                      (,cll88 (:foreground ,(fl88 'my-yellow)))
-                                      (,cld16 (:foreground ,(fd16 'my-yellow)))
-                                      (,cll16 (:foreground ,(fl16 'my-yellow)))))
      `(font-lock-preprocessor-face ((default :slant italic)
                                     (,cld88 (:foreground ,(fd88 'my-yellow)))
                                     (,cll88 (:foreground ,(fl88 'my-yellow)))
                                     (,cld16 (:foreground ,(fd16 'my-yellow)))
                                     (,cll16 (:foreground ,(fl16 'my-yellow)))))
-     `(font-lock-exit-face ((,cld88 (:foreground ,(fd88 'my-magenta)))
-                            (,cll88 (:foreground ,(fl88 'my-magenta)))
-                            (,cld16 (:foreground ,(fd16 'my-magenta)))
-                            (,cll16 (:foreground ,(fl16 'my-magenta)))))
-     `(font-lock-other-emphasized-face ((,cld88 (:foreground ,(fd88 'my-magenta)))
-                                        (,cll88 (:foreground ,(fl88 'my-magenta)))
-                                        (,cld16 (:foreground ,(fd16 'my-magenta)))
-                                        (,cll16 (:foreground ,(fl16 'my-magenta)))))
-     `(c-annotation-face ((t (:inherit font-lock-constant-face))))
-
      `(font-lock-type-face ((default :weight bold)
                             (,cld88 (:foreground ,(fd88 'my-blue-1)))
                             (,cll88 (:foreground ,(fl88 'my-blue-1)))
                             (,cld16 (:foreground ,(fd16 'my-blue-1)))
                             (,cll16 (:foreground ,(fl16 'my-blue-1)))))
-     `(font-lock-other-type-face ((default :weight bold :slant italic)
-                                  (,cld88 (:foreground ,(fd88 'my-blue-1)))
-                                  (,cll88 (:foreground ,(fl88 'my-blue-1)))
-                                  (,cld16 (:foreground ,(fd16 'my-blue-1)))
-                                  (,cll16 (:foreground ,(fl16 'my-blue-1)))))
      `(font-lock-function-name-face ((,cld88 (:foreground ,(fd88 'my-blue-1)))
                                      (,cll88 (:foreground ,(fl88 'my-blue-1)))
                                      (,cld16 (:foreground ,(fd16 'my-blue-1)))
@@ -362,7 +341,7 @@
      `(font-lock-reference-face ((,cld88 (:foreground ,(fd88 'my-magenta)))
                                  (,cll88 (:foreground ,(fl88 'my-magenta)))
                                  (,cld16 (:foreground ,(fd16 'my-magenta)))
-                                 (,cll16 (:foreground ,(fl16 'my-magenta))))) ;TODO: ???
+                                 (,cll16 (:foreground ,(fl16 'my-magenta)))))
      `(font-lock-string-face ((,cld88 (:background ,(fd88 'my-bg+1) :foreground ,(fd88 'my-green+4)))
                               (,cll88 (:background ,(fl88 'my-bg+1) :foreground ,(fl88 'my-green+4)))
                               (,cld16 (:background ,(fd16 'my-bg+1) :foreground ,(fd16 'my-green+4)))
@@ -385,11 +364,6 @@
                            (,cll88 (:foreground ,(fl88 'my-green+1)))
                            (,cld16 (:foreground ,(fd16 'my-green+1)))
                            (,cll16 (:foreground ,(fl16 'my-green+1))))) ; e.g. elisp variable doc
-     `(font-lock-doc-string-face ((,cld88 (:foreground ,(fd88 'my-green+1)))
-                                  (,cll88 (:foreground ,(fl88 'my-green+1)))
-                                  (,cld16 (:foreground ,(fd16 'my-green+1)))
-                                  (,cll16 (:foreground ,(fl16 'my-green+1)))))
-
      `(font-lock-regexp-grouping-backslash ((,cld88 (:foreground ,(fd88 'my-red)))
                                             (,cll88 (:foreground ,(fl88 'my-red)))
                                             (,cld16 (:foreground ,(fd16 'my-red)))
@@ -517,6 +491,49 @@
      `(js2-jsdoc-type-face        ((t (:inherit font-lock-doc-face))))
      `(js2-jsdoc-value-face       ((t (:inherit font-lock-doc-face))))
 
+     ;; slime-mode
+     `(slime-highlight-edits-face ((default :weight bold)))
+     `(slime-repl-input-face ((default (:weight normal :underline nil))))
+     `(slime-repl-prompt-face ((t (:inherit minibuffer-prompt))))
+     `(slime-repl-result-face ((t (:inherit highlight))))
+     `(slime-repl-inputed-output-face ((t (:inherit font-lock-negation-char-face))))
+     `(slime-repl-output-face ((t (:inherit font-lock-string-face))))
+
+     ;; bigloo
+     ;; there is also: ude-font-lock-face-1 .. ude-font-lock-face-12
+     `(ude-font-lock-face-1 ((t (:inherit font-lock-builtin-face))))       ; module, ...
+     `(ude-font-lock-face-2 ((t (:inherit font-lock-negation-char-face)))) ; assert
+     `(ude-font-lock-face-4 ((t (:inherit font-lock-type-face))))          ; ::type
+     `(ude-font-lock-face-8 ((t (:inherit font-lock-builtin-face))))       ; error, trace, with-*
+     `(ude-font-lock-face-9 ((t (:inherit font-lock-preprocessor-face))))  ; sqlite-*
+
+     ;; racket
+     `(racket-check-syntax-def-face ((t (:inherit font-lock-type-face))))
+     `(racket-check-syntax-use-face ((t (:inherit font-lock-type-face :weight normal))))
+     `(racket-here-string-face ((t (:inherit sh-heredoc-face))))
+     `(racket-keyword-argument-face ((t (:inherit font-lock-keyword-face :weight normal))))
+     ;;`(racket-paren-face ((t (:inherit font-lock-preprocessor-face))))
+     `(racket-selfeval-face ((t (:inherit font-lock-preprocessor-face))))
+
+     ;; Ocaml: tuareg, merlin, utop
+     `(tuareg-font-lock-governing-face ((t (:inherit font-lock-builtin-face))))
+     `(tuareg-font-lock-multistage-face ((t (:inherit font-lock-preprocessor-face))))
+     `(tuareg-font-lock-line-number-face ((t (:inherit compilation-line-face :underline t))))
+     `(tuareg-font-lock-operator-face ((t (:inherit font-lock-keyword-face))))
+     `(tuareg-font-lock-module-face ((t (:inherit font-lock-builtin-face))))
+     `(tuareg-font-lock-constructor-face ((t (:inherit font-lock-function-name-face :weight bold))))
+     `(tuareg-font-lock-error-face ((t (:inherit error))))
+     `(tuareg-font-lock-interactive-output-face ((t (:inherit font-lock-string-face))))
+     `(tuareg-font-lock-interactive-error-face ((t (:inherit error))))
+     `(merlin-type-face ((t (:inherit font-lock-type-face))))
+     `(merlin-compilation-warning-face ((t (:inherit compilation-warning-face))))
+     `(merlin-compilation-error-face ((t (:inherit compilation-error))))
+     `(utop-prompt ((t (:inherit minibuffer-prompt))))
+     `(utop-stdout ((t (:inherit font-lock-string-face))))
+     `(utop-stderr ((t (:inherit warning))))
+     `(utop-frozen ((t (:inherit font-lock-comment-face))))
+     `(utop-error ((t (:inherit compilation-error))))
+
      ;; diff
      `(diff-added       ((,cld88 (:foreground ,(fd88 'my-green+3)))
                          (,cll88 (:foreground ,(fl88 'my-green+3)))
@@ -550,11 +567,11 @@
      `(magit-header         ((t (:inherit diff-header))))
      `(magit-section-title  ((t (:inherit diff-file-header))))
      `(magit-log-sha1       ((t (:inherit warning))))
-     `(magit-item-highlight ((t (:inherit font-lock-special-keyword-face))))
+     `(magit-item-highlight ((t (:inherit font-lock-negation-char-face))))
 
      ;; dired
      `(dired-directory      ((t (:inherit link :weight bold))))
-     `(dired-flagged        ((t (:inherit font-lock-special-keyword-face))))
+     `(dired-flagged        ((t (:inherit font-lock-negation-char-face))))
      `(dired-header         ((t (:inherit diff-header))))
      `(dired-ignored        ((t (:inherit font-lock-comment-face))))
      `(dired-mark           ((t (:inherid font-lock-negation-char-face))))
@@ -563,7 +580,8 @@
      `(dired-symlink        ((t (:inherit link :underline t))))
      `(dired-warning        ((t (:inherit warning))))
 
-     ;; eshell
+     ;; shell, eshell
+     `(sh-heredoc-face      ((t (:inherit font-lock-string-face :slant italic))))
      `(eshell-prompt        ((t (:inherit minibuffer-prompt))))
      `(eshell-ls-archive    ((t (:inherit font-lock-comment-face :slant italic))))
      `(eshell-ls-backup     ((t (:inherit font-lock-comment-face))))
@@ -573,7 +591,7 @@
      `(eshell-ls-unreadable ((t (:inherit error))))
      `(eshell-ls-missing    ((t (:inherit warning))))
      `(eshell-ls-product    ((t (:inherit font-lock-string-face)))) ; for files generated from source files
-     `(eshell-ls-special    ((t (:inherit font-lock-special-keyword-face))))
+     `(eshell-ls-special    ((t (:inherit font-lock-negation-char-face))))
      `(eshell-ls-symlink    ((t (:inherit dired-symlink))))
 
      ;; rainbow-delimiters  - {*3*}: add light classes
@@ -658,14 +676,14 @@
                  ))
      `(org-agenda-calendar-event ((t (:inherit font-lock-regexp-grouping-backslash))))
      `(org-agenda-calendar-sexp ((t (:inherit font-lock-regexp-grouping-construct))))
-     `(org-agenda-clocking ((t (:inherit font-lock-doc-string-face))))
-     `(org-agenda-column-dateline ((t (:inherit font-lock-special-keyword-face))))
+     `(org-agenda-clocking ((t (:inherit font-lock-doc-face))))
+     `(org-agenda-column-dateline ((t (:inherit font-lock-negation-char-face))))
      `(org-agenda-diary ((t (:inherit font-lock-function-name-face))))
      `(org-agenda-dimmed-todo-face ((t (:inherit diff-added))))
      `(org-agenda-done ((t (:inherit success))))
-     `(org-agenda-filter-category ((t (:inherit font-lock-other-type-face))))
-     `(org-agenda-filter-tags ((t (:inherit font-lock-other-type-face))))
-     `(org-agenda-restriction-lock ((t (:inherit font-lock-other-type-face))))
+     `(org-agenda-filter-category ((t (:inherit font-lock-type-face))))
+     `(org-agenda-filter-tags ((t (:inherit font-lock-type-face))))
+     `(org-agenda-restriction-lock ((t (:inherit font-lock-type-face))))
      `(org-agenda-structure ((t (:inherit font-lock-function-name-face))))
      `(org-archived ((t (:inherit font-lock-comment-face))))
      `(org-block ((t (:inherit font-lock-comment-face))))
@@ -675,7 +693,7 @@
      `(org-code ((t (:inherit font-lock-doc-face))))
      `(org-column ((t (:inherit font-lock-variable-name-face))))
      `(org-column-title ((t (:inherit org-column :weight bold))))
-     `(org-date ((t (:inherit font-lock-doc-string-face))))
+     `(org-date ((t (:inherit font-lock-doc-face))))
      `(org-date-selected ((t (:inherit font-lock-doc-face))))
      `(org-document-info ((t (:inherit font-lock-comment-face))))
      `(org-document-info-keyword ((t (:inherit font-lock-comment-delimiter-face))))
@@ -687,23 +705,23 @@
      `(org-formula ((t (:inherit font-lock-function-name-face))))
      `(org-headline-done ((t (:inherit success :weight bold))))
      `(org-latex-and-export-specials ((t (:inherid font-lock-negation-char-face))))
-     `(org-level-1 ((t (:inherit font-lock-special-keyword-face))))
+     `(org-level-1 ((t (:inherit font-lock-negation-char-face))))
      `(org-level-2 ((t (:inherit font-lock-keyword-face))))
      `(org-level-3 ((t (:inherit font-lock-builtin-face))))
-     `(org-level-4 ((t (:inherit font-lock-color-constant-face))))
+     `(org-level-4 ((t (:inherit font-lock-preprocessor-face))))
      `(org-level-5 ((t (:inherit font-lock-constant-face))))
      `(org-level-6 ((t (:inherit font-lock-type-face))))
-     `(org-level-7 ((t (:inherit font-lock-other-type-face))))
+     `(org-level-7 ((t (:inherit font-lock-type-face))))
      `(org-level-8 ((t (:inherit font-lock-function-name-face))))
      `(org-link ((t (:inherit link))))
      `(org-list-dt ((t (:inherit font-lock-constant-face))))
-     `(org-meta-line ((t (:inherit font-lock-other-type-face))))
+     `(org-meta-line ((t (:inherit font-lock-type-face))))
      `(org-property-value ((t (:inherit font-lock-string-face))))
      `(org-scheduled ((t (:inherit diff-changed))))
      `(org-scheduled-previously ((t (:inherit diff-added))))
      `(org-scheduled-today ((t (:inherit diff-removed))))
      `(org-sexp-date ((t (:inherit font-lock-regexp-grouping-construct))))
-     `(org-special-keyword ((t (:inherit font-lock-special-keyword-face))))
+     `(org-special-keyword ((t (:inherit font-lock-negation-char-face))))
      `(org-table ((t (:inherit  font-lock-function-name-face))))
      `(org-tag ((t (:inherit (highlight)))))
      `(org-target ((t (:inherit link-visited))))
@@ -756,6 +774,10 @@
                          (t (:foreground "white" :background "lightgray"))))
      '(term-default-fg-color ((t (:inherit term-color-white))))
      '(term-default-bg-color ((t (:inherit term-color-black))))
+
+     ;; others
+     `(c-annotation-face ((t (:inherit font-lock-constant-face))))
+     `(csv-separator-face ((t (:inherit diff-header))))
      )
 
     (custom-theme-set-variables
